@@ -9,6 +9,7 @@ public abstract class User {
 	private String password;
 	private String address;
 	private Date birthday;
+	//GET && SET
 	public String getName() {
 		return name;
 	}
@@ -54,7 +55,6 @@ public abstract class User {
 		this.address=address;
 		this.birthday=birthday;
 	}
-	//Constructor
 	public User(String name,String firstname,String email,String password) {
 		this.name=name;
 		this.firstname=firstname;
@@ -63,7 +63,6 @@ public abstract class User {
 		this.address="";
 		this.birthday=new Date();
 	}
-	//Constructor
 	public User(String email,String password) {
 		this.name="";
 		this.firstname="";

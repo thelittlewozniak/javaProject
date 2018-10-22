@@ -7,6 +7,7 @@ import java.util.List;
 public class Lender extends Player {
 	
 	private List<Copy> copies;
+	//GET && SET
 	public List<Copy> getCopies(){
 		return copies;
 	}

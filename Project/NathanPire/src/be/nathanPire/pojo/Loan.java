@@ -7,6 +7,8 @@ public class Loan {
 	private LocalDateTime endDate;
 	private Borrower borrower;
 	private Lender lender;
+	private Copy copy;
+	//GET && SET
 	public LocalDateTime getBeginDate() {
 		return beginDate;
 	}
@@ -30,6 +32,12 @@ public class Loan {
 	}
 	public void setLender(Lender lender) {
 		this.lender=lender;
+	}
+	public Copy getCopy() {
+		return copy;
+	}
+	public void setCopy(Copy copy) {
+		this.copy=copy;
 	}
 	//Constructor
 	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Borrower borrower,Lender lender) {

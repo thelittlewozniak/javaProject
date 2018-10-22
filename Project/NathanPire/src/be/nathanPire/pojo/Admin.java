@@ -7,6 +7,9 @@ public class Admin extends User {
 	public Admin(String name, String firstname, String email, String password, String address, Date birthday) {
 		super(name, firstname, email, password, address, birthday);
 	}
+	//Function to add a game
+	//@input=Object game
+	//@output=void
 	public void addGame() {
 		//NEED TO BE DONE
 	}

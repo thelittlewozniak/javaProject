@@ -7,6 +7,7 @@ import java.util.List;
 public class Borrower extends Player {
 
 	private List<Reservation> reservations;
+	//GET && SET
 	public List<Reservation> getReservation(){
 		return reservations;
 	}

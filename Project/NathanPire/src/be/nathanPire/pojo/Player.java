@@ -6,6 +6,7 @@ import java.util.Date;
 public abstract class Player extends User {
 	private LocalDateTime registerDate;
 	private float amountUnit;
+	//GET && SET
 	public LocalDateTime getRegisterDate() {
 		return registerDate;
 	}
@@ -21,7 +22,6 @@ public abstract class Player extends User {
 		this.registerDate=registerDate;
 		this.amountUnit=amountUnit;
 	}
-	//Constructor
 	public Player(String email,String password) {
 		super(email,password);
 		this.registerDate=LocalDateTime.now();
