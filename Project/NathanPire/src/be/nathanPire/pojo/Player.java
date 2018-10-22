@@ -15,11 +15,13 @@ public abstract class Player extends User {
 	public void setAmountUnit(float amountUnit) {
 		this.amountUnit=amountUnit;
 	}
+	//Constructor
 	public Player(String name, String firstname, String email, String password, String address, Date birthday,LocalDateTime registerDate,float amountUnit) {
 		super(name, firstname, email, password, address, birthday);
 		this.registerDate=registerDate;
 		this.amountUnit=amountUnit;
 	}
+	//Constructor
 	public Player(String email,String password) {
 		super(email,password);
 		this.registerDate=LocalDateTime.now();
