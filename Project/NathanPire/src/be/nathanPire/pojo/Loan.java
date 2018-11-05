@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class Loan {
 	private LocalDateTime beginDate;
 	private LocalDateTime endDate;
-	private Borrower borrower;
-	private Lender lender;
+	private Player borrower;
+	private Player lender;
 	private Copy copy;
 	//GET && SET
 	public LocalDateTime getBeginDate() {
@@ -21,16 +21,16 @@ public class Loan {
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate=endDate;
 	}
-	public Borrower getBorrower() {
+	public Player getBorrower() {
 		return borrower;
 	}
-	public void setBorrower(Borrower borrower) {
+	public void setBorrower(Player borrower) {
 		this.borrower=borrower;
 	}
-	public Lender getLender() {
+	public Player getLender() {
 		return lender;
 	}
-	public void setLender(Lender lender) {
+	public void setLender(Player lender) {
 		this.lender=lender;
 	}
 	public Copy getCopy() {
@@ -40,7 +40,7 @@ public class Loan {
 		this.copy=copy;
 	}
 	//Constructor
-	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Borrower borrower,Lender lender) {
+	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Player borrower,Player lender) {
 		this.beginDate=beginDate;
 		this.endDate=endDate;
 		this.borrower=borrower;
