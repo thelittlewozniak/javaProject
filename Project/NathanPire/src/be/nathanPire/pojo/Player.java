@@ -1,6 +1,7 @@
 package be.nathanPire.pojo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class Player extends User {
 	//Constructor
 	public Player(int ID,String name, String firstname, String email, String password, String address, Date birthday,LocalDateTime registerDate,float amountUnit) {
 		super(ID,name, firstname, email, password, address, birthday);
+		this.reservations=new ArrayList<Reservation>();
+		this.copies=new ArrayList<Copy>();
 		this.registerDate=registerDate;
 		this.amountUnit=amountUnit;
 	}
