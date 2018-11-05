@@ -30,6 +30,9 @@ public class Reservation {
 	public Game getGameWanted() {
 		return gameWanted;
 	}
+	public void setGameWanted(Game g) {
+		this.gameWanted=g;
+	}
 	//Constructor
 	public Reservation(Game gameWanted,LocalDateTime beginDateWanted) {
 		this.gameWanted=gameWanted;

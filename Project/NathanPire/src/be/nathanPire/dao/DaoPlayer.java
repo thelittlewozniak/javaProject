@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.nathanPire.pojo.Player;
+import be.nathanPire.pojo.Reservation;
 
 public class DaoPlayer extends DAO{
 
@@ -76,7 +77,7 @@ public class DaoPlayer extends DAO{
 			e.printStackTrace();
 			return false;
 		}
-		sql="UPDATE Player SET Name="+p.getName()+",Firstname"+p.getFirstname()+",Birthday"+p.getBirthday()+",Email="+p.getEmail()+",Password"+p.getPassword()+",Address="+p.getAddress()+",Amount="+p.getAmountUnit()+",RegisterDate="+p.getRegisterDate()+",Admin=false;";
+		sql="UPDATE Player SET Name="+p.getName()+",Firstname"+p.getFirstname()+",Birthday"+p.getBirthday()+",Email="+p.getEmail()+",Password"+p.getPassword()+",Address="+p.getAddress()+",Amount="+p.getAmountUnit()+",RegisterDate="+p.getRegisterDate()+",Admin=false where idPlayer="+p.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -111,8 +112,9 @@ public class DaoPlayer extends DAO{
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
+			DaoReservation r=new DaoReservation(this.connect);
 			while(result.next()) {
-				//NEED TO IMPLEMENT
+				p.addReservation((Reservation)r.find(result.getInt("idReservation")));
 			}
 		}
 		catch(SQLException e) {

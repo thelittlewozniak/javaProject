@@ -3,8 +3,11 @@ package be.nathanPire.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
+import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
@@ -67,20 +70,69 @@ public class DaoReservation extends DAO{
 
 	@Override
 	public boolean update(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+		Reservation r=null;
+		try {
+			r=(Reservation) obj;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		sql="UPDATE Reservation SET BeginDateWanted="+r.getBeginDateWanted();
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.CONCUR_READ_ONLY
+			      ).executeQuery(sql);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
 	public Object find(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Reservation r=null;
+		sql="SELECT * FROM Reservation WHERE idReservation="+id;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.CONCUR_READ_ONLY
+			      ).executeQuery(sql);
+			DaoGame g=new DaoGame(this.connect);
+			r=new Reservation((Game)g.find(result.getInt("idGame")),result.getDate("BeginDateWanted").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return r;
+		}
+		
+		return r;
 	}
 
 	@Override
-	public List getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reservation> getAll() {
+		List<Reservation> r=new ArrayList<Reservation>();
+		sql="SELECT * FROM Reservation";
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.CONCUR_READ_ONLY
+			      ).executeQuery(sql);
+			DaoGame g=new DaoGame(this.connect);
+			while(result.next()) {
+				r.add(new Reservation((Game)g.find(result.getInt("idGame")),result.getDate("BeginDateWanted").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return r;
+		}
+
+		return r;
 	}
 
 }

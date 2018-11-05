@@ -35,7 +35,8 @@ public class Game {
 		return unit;
 	}
 	//Constructor
-	public Game(String name,String developers,String editors,float unit) {
+	public Game(int ID,String name,String developers,String editors,float unit) {
+		this.ID=ID;
 		this.name=name;
 		this.developers=developers;
 		this.editors=editors;
