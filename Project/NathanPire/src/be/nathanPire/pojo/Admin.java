@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Admin extends User {
 	//Constructor
-	public Admin(String name, String firstname, String email, String password, String address, Date birthday) {
-		super(name, firstname, email, password, address, birthday);
+	public Admin(int ID,String name, String firstname, String email, String password, String address, Date birthday) {
+		super(ID,name, firstname, email, password, address, birthday);
 	}
 	//Function to add a game
 	//@input=Object game
