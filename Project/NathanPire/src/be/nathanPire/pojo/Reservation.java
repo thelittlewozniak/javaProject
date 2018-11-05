@@ -3,11 +3,18 @@ package be.nathanPire.pojo;
 import java.time.LocalDateTime;
 
 public class Reservation {
+	private int ID;
 	private LocalDateTime reservationDate;
 	private LocalDateTime beginDateWanted;
 	private Player player;
 	private Game gameWanted;
 	//GET && SET
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID=ID;
+	}
 	public Player getPlayer() {
 		return player;
 	}

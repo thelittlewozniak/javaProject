@@ -42,8 +42,27 @@ public class DaoReservation extends DAO{
 
 	@Override
 	public boolean delete(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+		Reservation r=null;
+		try {
+			r=(Reservation) obj;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		sql="DELETE FROM Reservation WHERE idReservation="+r.getID();
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.CONCUR_READ_ONLY
+			      ).executeQuery(sql);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
