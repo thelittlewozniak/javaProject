@@ -5,8 +5,15 @@ import java.time.LocalDateTime;
 public class Reservation {
 	private LocalDateTime reservationDate;
 	private LocalDateTime beginDateWanted;
+	private Player player;
 	private Game gameWanted;
 	//GET && SET
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player=player;
+	}
 	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}

@@ -1,11 +1,18 @@
 package be.nathanPire.pojo;
 
 public class Game {
+	private int ID;
 	private String name;
 	private String developers;
 	private String editors;
 	private float unit;
 	//GET && SET
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID=ID;
+	}
 	public String getName() {
 		return name;
 	}
