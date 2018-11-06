@@ -10,7 +10,7 @@ import java.util.List;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
-public class DaoPlayer extends DAO{
+public class DaoPlayer extends DAO<Player>{
 
 	private String sql;
 	public DaoPlayer(Connection conn) {
@@ -18,16 +18,8 @@ public class DaoPlayer extends DAO{
 	}
 
 	@Override
-	public boolean create(Object obj) {
-		Player p=null;
-		try {
-			p=(Player) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values("+p.getName()+","+p.getFirstname()+","+p.getBirthday()+","+p.getEmail()+","+p.getPassword()+","+p.getAddress()+","+p.getAmountUnit()+","+p.getRegisterDate()+",false)";
+	public boolean create(Player obj) {
+		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values("+obj.getName()+","+obj.getFirstname()+","+obj.getBirthday()+","+obj.getEmail()+","+obj.getPassword()+","+obj.getAddress()+","+obj.getAmountUnit()+","+obj.getRegisterDate()+",false)";
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -43,16 +35,8 @@ public class DaoPlayer extends DAO{
 	}
 
 	@Override
-	public boolean delete(Object obj) {
-		Player p=null;
-		try {
-			p=(Player) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="DELETE FROM Player where idPlayer="+p.getID();
+	public boolean delete(Player obj) {
+		sql="DELETE FROM Player where idPlayer="+obj.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -68,16 +52,8 @@ public class DaoPlayer extends DAO{
 	}
 
 	@Override
-	public boolean update(Object obj) {
-		Player p=null;
-		try {
-			p=(Player) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="UPDATE Player SET Name="+p.getName()+",Firstname"+p.getFirstname()+",Birthday"+p.getBirthday()+",Email="+p.getEmail()+",Password"+p.getPassword()+",Address="+p.getAddress()+",Amount="+p.getAmountUnit()+",RegisterDate="+p.getRegisterDate()+",Admin=false where idPlayer="+p.getID();
+	public boolean update(Player obj) {
+		sql="UPDATE Player SET Name="+obj.getName()+",Firstname"+obj.getFirstname()+",Birthday"+obj.getBirthday()+",Email="+obj.getEmail()+",Password"+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+obj.getRegisterDate()+",Admin=false where idPlayer="+obj.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -93,7 +69,7 @@ public class DaoPlayer extends DAO{
 	}
 
 	@Override
-	public Object find(int id) {
+	public Player find(int id) {
 		sql="SELECT * FROM Player where idPlayer="+id;
 		Player p=null;
 		try {

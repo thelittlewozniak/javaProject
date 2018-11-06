@@ -8,23 +8,15 @@ import java.util.List;
 
 import be.nathanPire.pojo.Game;
 
-public class DaoGame extends DAO {
+public class DaoGame extends DAO<Game> {
 	private String sql;
 	public DaoGame(Connection conn) {
 		super(conn);
 	}
 
 	@Override
-	public boolean create(Object obj) {
-		Game g=null;
-		try {
-			g=(Game) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="INSERT INTO Game(Name,Developers,Editor,Unit) values("+g.getName()+","+g.getDevelopers()+","+g.getEditors()+","+g.getUnit()+")";
+	public boolean create(Game obj) {
+		sql="INSERT INTO Game(Name,Developers,Editor,Unit) values("+obj.getName()+","+obj.getDevelopers()+","+obj.getEditors()+","+obj.getUnit()+")";
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -40,16 +32,8 @@ public class DaoGame extends DAO {
 	}
 
 	@Override
-	public boolean delete(Object obj) {
-		Game g=null;
-		try {
-			g=(Game) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="DELETE FROM Game WHERE idGame="+g.getID();
+	public boolean delete(Game obj) {
+		sql="DELETE FROM Game WHERE idGame="+obj.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -65,15 +49,8 @@ public class DaoGame extends DAO {
 	}
 
 	@Override
-	public boolean update(Object obj) {
-		Game g=null;
-		try {
-			g=(Game) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
+	public boolean update(Game obj) {
+		Game g=obj;
 		sql="UPDATE Game SET Name="+g.getName()+",Developers="+g.getEditors()+",Editor="+g.getEditors()+",Unit="+g.getUnit()+" where idGame="+g.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
@@ -90,7 +67,7 @@ public class DaoGame extends DAO {
 	}
 
 	@Override
-	public Object find(int id) {
+	public Game find(int id) {
 		Game g=null;
 		sql="SELECT * FROM Game WHERE idGame="+id;
 		try {

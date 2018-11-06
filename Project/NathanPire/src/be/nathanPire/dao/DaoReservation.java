@@ -11,7 +11,7 @@ import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
-public class DaoReservation extends DAO{
+public class DaoReservation extends DAO<Reservation>{
 
 	private String sql;
 	public DaoReservation(Connection conn) {
@@ -19,16 +19,8 @@ public class DaoReservation extends DAO{
 	}
 
 	@Override
-	public boolean create(Object obj) {
-		Reservation r=null;
-		try {
-			r=(Reservation) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="INSERT INTO Reservation(DateReservation,BeginDateWanted,idPlayer,idGame) values("+r.getReservationDate()+","+r.getBeginDateWanted()+","+r.getPlayer().getID()+","+r.getGameWanted().getID()+")";
+	public boolean create(Reservation obj) {
+		sql="INSERT INTO Reservation(DateReservation,BeginDateWanted,idPlayer,idGame) values("+obj.getReservationDate()+","+obj.getBeginDateWanted()+","+obj.getPlayer().getID()+","+obj.getGameWanted().getID()+")";
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -44,16 +36,8 @@ public class DaoReservation extends DAO{
 	}
 
 	@Override
-	public boolean delete(Object obj) {
-		Reservation r=null;
-		try {
-			r=(Reservation) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="DELETE FROM Reservation WHERE idReservation="+r.getID();
+	public boolean delete(Reservation obj) {
+		sql="DELETE FROM Reservation WHERE idReservation="+obj.getID();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -69,16 +53,8 @@ public class DaoReservation extends DAO{
 	}
 
 	@Override
-	public boolean update(Object obj) {
-		Reservation r=null;
-		try {
-			r=(Reservation) obj;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		sql="UPDATE Reservation SET BeginDateWanted="+r.getBeginDateWanted();
+	public boolean update(Reservation obj) {
+		sql="UPDATE Reservation SET BeginDateWanted="+obj.getBeginDateWanted();
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -94,7 +70,7 @@ public class DaoReservation extends DAO{
 	}
 
 	@Override
-	public Object find(int id) {
+	public Reservation find(int id) {
 		Reservation r=null;
 		sql="SELECT * FROM Reservation WHERE idReservation="+id;
 		try {
