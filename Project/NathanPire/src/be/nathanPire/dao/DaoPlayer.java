@@ -15,13 +15,14 @@ public class DaoPlayer extends DAO<Player>{
 	private String sql;
 	public DaoPlayer(Connection conn) {
 		super(conn);
+		sql="";
 	}
 
 	@Override
 	public boolean create(Player obj) {
 		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values("+obj.getName()+","+obj.getFirstname()+","+obj.getBirthday()+","+obj.getEmail()+","+obj.getPassword()+","+obj.getAddress()+","+obj.getAmountUnit()+","+obj.getRegisterDate()+",false)";
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -38,7 +39,7 @@ public class DaoPlayer extends DAO<Player>{
 	public boolean delete(Player obj) {
 		sql="DELETE FROM Player where idPlayer="+obj.getID();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -55,7 +56,7 @@ public class DaoPlayer extends DAO<Player>{
 	public boolean update(Player obj) {
 		sql="UPDATE Player SET Name="+obj.getName()+",Firstname"+obj.getFirstname()+",Birthday"+obj.getBirthday()+",Email="+obj.getEmail()+",Password"+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+obj.getRegisterDate()+",Admin=false where idPlayer="+obj.getID();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);

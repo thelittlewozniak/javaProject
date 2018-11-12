@@ -83,5 +83,16 @@ public class Player extends User {
 		}
 		return true;
 	}
+	public void addGame() {
+		//NEED TO BE DONE
+	}
+	//Function to modify the unit of each game
+	//@input=float unit to add or remove
+	//@output=Boolean
+	public Boolean ModifyUnit() {
+		//NEED TO BE DONE
+		return true;
+	}
+
 
 }

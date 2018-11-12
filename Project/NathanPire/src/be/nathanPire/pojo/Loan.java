@@ -3,12 +3,19 @@ package be.nathanPire.pojo;
 import java.time.LocalDateTime;
 
 public class Loan {
+	private int ID;
 	private LocalDateTime beginDate;
 	private LocalDateTime endDate;
 	private Player borrower;
 	private Player lender;
 	private Copy copy;
 	//GET && SET
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID=ID;
+	}
 	public LocalDateTime getBeginDate() {
 		return beginDate;
 	}
@@ -40,10 +47,11 @@ public class Loan {
 		this.copy=copy;
 	}
 	//Constructor
-	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Player borrower,Player lender) {
+	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Player borrower,Player lender,Copy copy) {
 		this.beginDate=beginDate;
 		this.endDate=endDate;
 		this.borrower=borrower;
 		this.lender=lender;
+		this.copy=copy;
 	}
 }

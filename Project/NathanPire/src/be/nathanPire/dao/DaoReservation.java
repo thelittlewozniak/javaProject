@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.nathanPire.pojo.Game;
-import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
 public class DaoReservation extends DAO<Reservation>{
@@ -16,13 +15,14 @@ public class DaoReservation extends DAO<Reservation>{
 	private String sql;
 	public DaoReservation(Connection conn) {
 		super(conn);
+		sql="";
 	}
 
 	@Override
 	public boolean create(Reservation obj) {
 		sql="INSERT INTO Reservation(DateReservation,BeginDateWanted,idPlayer,idGame) values("+obj.getReservationDate()+","+obj.getBeginDateWanted()+","+obj.getPlayer().getID()+","+obj.getGameWanted().getID()+")";
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -39,7 +39,7 @@ public class DaoReservation extends DAO<Reservation>{
 	public boolean delete(Reservation obj) {
 		sql="DELETE FROM Reservation WHERE idReservation="+obj.getID();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -56,7 +56,7 @@ public class DaoReservation extends DAO<Reservation>{
 	public boolean update(Reservation obj) {
 		sql="UPDATE Reservation SET BeginDateWanted="+obj.getBeginDateWanted();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -79,7 +79,9 @@ public class DaoReservation extends DAO<Reservation>{
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			DaoGame g=new DaoGame(this.connect);
+			DaoPlayer p =new DaoPlayer(this.connect);
 			r=new Reservation((Game)g.find(result.getInt("idGame")),result.getDate("BeginDateWanted").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+			r.setPlayer(p.find(result.getInt("idPlayer")));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

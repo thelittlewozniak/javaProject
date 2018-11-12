@@ -12,13 +12,14 @@ public class DaoGame extends DAO<Game> {
 	private String sql;
 	public DaoGame(Connection conn) {
 		super(conn);
+		sql="";
 	}
 
 	@Override
 	public boolean create(Game obj) {
 		sql="INSERT INTO Game(Name,Developers,Editor,Unit) values("+obj.getName()+","+obj.getDevelopers()+","+obj.getEditors()+","+obj.getUnit()+")";
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -35,7 +36,7 @@ public class DaoGame extends DAO<Game> {
 	public boolean delete(Game obj) {
 		sql="DELETE FROM Game WHERE idGame="+obj.getID();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
@@ -53,7 +54,7 @@ public class DaoGame extends DAO<Game> {
 		Game g=obj;
 		sql="UPDATE Game SET Name="+g.getName()+",Developers="+g.getEditors()+",Editor="+g.getEditors()+",Unit="+g.getUnit()+" where idGame="+g.getID();
 		try {
-			ResultSet result = this.connect.createStatement(
+			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);

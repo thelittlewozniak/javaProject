@@ -33,8 +33,8 @@ public class Copy {
 		this.addDate=addDate;
 	}
 	//Constructor
-	public Copy(Game game) {
+	public Copy(Game game,LocalDateTime date) {
 		this.game=game;
-		this.addDate=LocalDateTime.now();
+		this.addDate=date;
 	}
 }
