@@ -6,4 +6,5 @@
  *
  */
 module NathanPire {
+	requires java.sql;
 }

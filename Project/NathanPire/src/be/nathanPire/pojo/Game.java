@@ -1,11 +1,18 @@
 package be.nathanPire.pojo;
 
 public class Game {
+	private int ID;
 	private String name;
 	private String developers;
 	private String editors;
 	private float unit;
 	//GET && SET
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID=ID;
+	}
 	public String getName() {
 		return name;
 	}
@@ -28,7 +35,8 @@ public class Game {
 		return unit;
 	}
 	//Constructor
-	public Game(String name,String developers,String editors,float unit) {
+	public Game(int ID,String name,String developers,String editors,float unit) {
+		this.ID=ID;
 		this.name=name;
 		this.developers=developers;
 		this.editors=editors;
