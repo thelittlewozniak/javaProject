@@ -3,6 +3,7 @@ package be.nathanPire.pojo;
 import java.util.Date;
 
 public abstract class User {
+	private int ID;
 	private String name;
 	private String firstname;
 	private String email;
@@ -10,6 +11,13 @@ public abstract class User {
 	private String address;
 	private Date birthday;
 	//GET && SET
+	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID=ID;
+	}
 	public String getName() {
 		return name;
 	}
@@ -47,7 +55,8 @@ public abstract class User {
 		this.birthday=birthday;
 	}
 	//Constructor
-	public User(String name,String firstname,String email,String password,String address,Date birthday) {
+	public User(int ID,String name,String firstname,String email,String password,String address,Date birthday) {
+		this.ID=ID;
 		this.name=name;
 		this.firstname=firstname;
 		this.email=email;
