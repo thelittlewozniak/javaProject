@@ -3,8 +3,10 @@ package be.nathanPire.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import be.nathanPire.pojo.Player;
@@ -136,7 +138,7 @@ public class DaoPlayer extends DAO<Player>{
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
-				players.add(new Player(result.getInt(0),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),result.getDate("Birthday"),result.getDate("RegisterDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount")));
+				players.add(new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),new Date(),LocalDateTime.now(),result.getFloat("Amount"))); //result.getDate("RegisterDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 			}
 		}
 		catch(SQLException e) {
