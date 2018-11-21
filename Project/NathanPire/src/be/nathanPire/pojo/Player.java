@@ -1,5 +1,6 @@
 package be.nathanPire.pojo;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,10 @@ public class Player extends User {
 		this.copies=new ArrayList<Copy>();
 		this.registerDate=registerDate;
 		this.amountUnit=amountUnit;
+	}
+	public Player(String name,String firstname,String email,String password,String Address,Date date) {
+		super(name, firstname, email, password, Address,date);
+		this.registerDate=LocalDateTime.now();
 	}
 	public Player(String email,String password) {
 		super(email,password);
