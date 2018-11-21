@@ -64,13 +64,13 @@ public abstract class User {
 		this.address=address;
 		this.birthday=birthday;
 	}
-	public User(String name,String firstname,String email,String password) {
+	public User(String name,String firstname,String email,String password,String address,Date birthday) {
 		this.name=name;
 		this.firstname=firstname;
 		this.email=email;
 		this.password=password;
-		this.address="";
-		this.birthday=new Date();
+		this.address=address;
+		this.birthday=birthday;
 	}
 	public User(String email,String password) {
 		this.name="";
