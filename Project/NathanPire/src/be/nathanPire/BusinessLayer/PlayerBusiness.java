@@ -14,18 +14,7 @@ import be.nathanPire.pojo.Player;
 public class PlayerBusiness {
 	private Connection conn;
 	public PlayerBusiness() {
-		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			conn=DriverManager.getConnection("jdbc:sqlserver://dbjavaprojectpire.database.windows.net:1433;database=Database;user=thelittlewozniak@dbjavaprojectpire;password={azerty1234@};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		conn=GetConnection.getInstance().getConnection();
 	}
 	public Player Login(String email,String password) {
 		if(email!=null && password!=null) {

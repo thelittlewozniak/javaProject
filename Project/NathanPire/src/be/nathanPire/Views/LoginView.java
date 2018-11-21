@@ -92,7 +92,9 @@ public class LoginView extends JFrame {
 					PlayerBusiness p=new PlayerBusiness();
 					Player u=p.Login(txtEmail.getText(), txtPassword.getText());
 					if(u!=null) {
-						
+						HomeView home=new HomeView(u);
+						home.setVisible(true);
+						dispose();
 					}
 				}
 			}
