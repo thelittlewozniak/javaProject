@@ -104,6 +104,12 @@ public class LoginView extends JFrame {
 		contentPane.add(btnConnect);
 		
 		JButton btnNoAccount = new JButton("No account?");
+		btnNoAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CreateUserView createUser=new CreateUserView();
+				createUser.setVisible(true);
+			}
+		});
 		btnNoAccount.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnNoAccount.setBounds(217, 206, 207, 44);
 		contentPane.add(btnNoAccount);

@@ -29,7 +29,7 @@ public class PlayerBusiness {
 		}
 		return null;
 	}
-	public Player Register(String email,String password,String name,String firstname,String birthday,String address) {
+	public boolean Register(String email,String password,String name,String firstname,String birthday,String address) {
 		if(email!=null && password!=null && name!=null && birthday!=null && address!=null) {
 			Date d = null;
 			try {
@@ -39,12 +39,12 @@ public class PlayerBusiness {
 			} 
 			Player p=new Player(name,firstname,email,password,address,d);
 			if(new DaoPlayer(conn).create(p)) {
-				return p;
+				return true;
 			}
 			else
-				return null;
+				return false;
 		}
 		else
-			return null;
+			return false;
 	}
 }
