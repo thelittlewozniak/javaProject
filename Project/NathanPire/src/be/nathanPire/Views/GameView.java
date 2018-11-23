@@ -68,6 +68,10 @@ public class GameView extends JFrame {
 		contentPane.add(lblSetUnit);
 		
 		JButton btnMakeAReservation = new JButton("Make a reservation");
+		btnMakeAReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnMakeAReservation.setBounds(10, 136, 174, 23);
 		contentPane.add(btnMakeAReservation);
 		
