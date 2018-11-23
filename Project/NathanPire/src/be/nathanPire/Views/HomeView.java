@@ -53,6 +53,8 @@ public class HomeView extends JFrame {
 		        if (evt.getClickCount() == 2) {
 		        	int index = list.locationToIndex(evt.getPoint());
 		            Game g=gameBusiness.getGameByName(games.get(index).getName());
+		            GameView gameView=new GameView(p,g);
+		            gameView.setVisible(true);
 		        }
 		    }
 		});
