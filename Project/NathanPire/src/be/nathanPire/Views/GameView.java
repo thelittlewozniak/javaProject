@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import be.nathanPire.BusinessLayer.CopyBusiness;
 import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ public class GameView extends JFrame {
 	public GameView(Player p,Game g) {
 		this.p=p;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 234);
+		setBounds(100, 100, 300, 311);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,18 +71,32 @@ public class GameView extends JFrame {
 		JButton btnMakeAReservation = new JButton("Make a reservation");
 		btnMakeAReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MakeReservationView mr=new MakeReservationView(p,g);
+				mr.setVisible(true);
+				dispose();
 			}
 		});
-		btnMakeAReservation.setBounds(10, 136, 174, 23);
+		btnMakeAReservation.setBounds(10, 238, 174, 23);
 		contentPane.add(btnMakeAReservation);
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				HomeView h=new HomeView(p);
+				h.setVisible(true);
 				dispose();
 			}
 		});
-		btnClose.setBounds(194, 136, 80, 23);
+		btnClose.setBounds(194, 238, 80, 23);
 		contentPane.add(btnClose);
+		
+		JLabel lblNumberAvailable = new JLabel("Available :");
+		lblNumberAvailable.setBounds(10, 136, 80, 14);
+		contentPane.add(lblNumberAvailable);
+		
+		JLabel lblSetAvailabe = new JLabel();
+		lblSetAvailabe.setBounds(100, 136, 174, 14);
+		lblSetAvailabe.setText(Integer.toString(new CopyBusiness().getNumberOfCopy(g)));
+		contentPane.add(lblSetAvailabe);
 	}
 }
