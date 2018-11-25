@@ -3,8 +3,13 @@ package be.nathanPire.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import be.nathanPire.pojo.Player;
@@ -20,7 +25,9 @@ public class DaoPlayer extends DAO<Player>{
 
 	@Override
 	public boolean create(Player obj) {
-		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values("+obj.getName()+","+obj.getFirstname()+","+obj.getBirthday()+","+obj.getEmail()+","+obj.getPassword()+","+obj.getAddress()+","+obj.getAmountUnit()+","+obj.getRegisterDate()+",false)";
+		String birthday=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBirthday());
+		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"',0)";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -54,7 +61,9 @@ public class DaoPlayer extends DAO<Player>{
 
 	@Override
 	public boolean update(Player obj) {
-		sql="UPDATE Player SET Name="+obj.getName()+",Firstname"+obj.getFirstname()+",Birthday"+obj.getBirthday()+",Email="+obj.getEmail()+",Password"+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+obj.getRegisterDate()+",Admin=false where idPlayer="+obj.getID();
+		String birthday=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBirthday());
+		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(obj.getRegisterDate());
+		sql="UPDATE Player SET Name="+obj.getName()+",Firstname="+obj.getFirstname()+",Birthday="+birthday+",Email="+obj.getEmail()+",Password="+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+registerDate+",Admin=false where idPlayer="+obj.getID();
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -78,7 +87,19 @@ public class DaoPlayer extends DAO<Player>{
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
-			p=new Player(result.getInt(0),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),result.getDate("Birthday"),result.getDate("RegisterDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
+			Date registerDate=null;
+			try {
+				registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			Date birthday=null;
+			try {
+				birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -136,7 +157,19 @@ public class DaoPlayer extends DAO<Player>{
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
-				players.add(new Player(result.getInt(0),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),result.getDate("Birthday"),result.getDate("RegisterDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount")));
+				Date registerDate=null;
+				try {
+					registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				Date birthday=null;
+				try {
+					birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				players.add(new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount")));
 			}
 		}
 		catch(SQLException e) {

@@ -93,7 +93,7 @@ public class DaoCopy extends DAO<Copy> {
 	@Override
 	public List<Copy> getAll() {
 		List<Copy> c=new ArrayList<Copy>();
-		sql="SELECT * FROM Game";
+		sql="SELECT * FROM Copy";
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
