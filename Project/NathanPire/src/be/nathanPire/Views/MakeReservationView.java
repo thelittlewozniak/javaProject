@@ -46,7 +46,7 @@ public class MakeReservationView extends JFrame {
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayerBusiness pb=new PlayerBusiness();
-				var player=pb.MakeAReservation(p, txtDate.getText(), g);
+				var player=pb.makeAReservation(p, txtDate.getText(), g);
 				HomeView h=new HomeView(player);
 				h.setVisible(true);
 				dispose();

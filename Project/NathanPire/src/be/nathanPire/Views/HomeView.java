@@ -71,6 +71,7 @@ public class HomeView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				ReservationView r=new ReservationView(p);
 				r.setVisible(true);
+				dispose();
 			}
 		});
 		btnYourReservations.setBounds(395, 33, 121, 23);

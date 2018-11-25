@@ -1,8 +1,9 @@
 package be.nathanPire.Views;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -12,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import be.nathanPire.pojo.Player;
-import javax.swing.ListModel;
 
 public class ReservationView extends JFrame {
 
@@ -34,10 +34,23 @@ public class ReservationView extends JFrame {
 		}
 		JList list = new JList(listModel);
 		list.setBounds(10, 11, 267, 205);
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		        	int index = list.locationToIndex(evt.getPoint());
+		            ReservationViewDetailes r=new ReservationViewDetailes(p,index);
+		            r.setVisible(true);
+		            dispose();
+		        }
+		    }
+		});
 		contentPane.add(list);
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				HomeView h=new HomeView(p);
+				h.setVisible(true);
 				dispose();
 			}
 		});

@@ -129,7 +129,7 @@ public class DaoPlayer extends DAO<Player>{
 					e.printStackTrace();
 				}
 				DaoGame g=new DaoGame(this.connect);
-				p.addReservation(new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate));
+				p.addReservation(new Reservation(result.getInt("idreservation"),(Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate));
 			}
 		}
 		catch(SQLException e) {
