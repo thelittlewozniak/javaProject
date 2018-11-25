@@ -76,7 +76,9 @@ public class DaoGame extends DAO<Game> {
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
-			g=new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit"));
+			while(result.next()) {
+				g=new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit"));
+			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

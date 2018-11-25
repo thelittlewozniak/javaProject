@@ -83,22 +83,24 @@ public class DaoReservation extends DAO<Reservation>{
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
-			Date reservationDate=null;
-			try {
-				reservationDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("DateReservation"));
-			} catch (ParseException e) {
-				e.printStackTrace();
+			while(result.next()) {
+				Date reservationDate=null;
+				try {
+					reservationDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("DateReservation"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				Date BeginDateWanted=null;
+				try {
+					BeginDateWanted = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("BeginDateWanted"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				DaoGame g=new DaoGame(this.connect);
+				DaoPlayer p =new DaoPlayer(this.connect);
+				r=new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
+				r.setPlayer(p.find(result.getInt("idPlayer")));
 			}
-			Date BeginDateWanted=null;
-			try {
-				BeginDateWanted = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("BeginDateWanted"));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			DaoGame g=new DaoGame(this.connect);
-			DaoPlayer p =new DaoPlayer(this.connect);
-			r=new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
-			r.setPlayer(p.find(result.getInt("idPlayer")));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
