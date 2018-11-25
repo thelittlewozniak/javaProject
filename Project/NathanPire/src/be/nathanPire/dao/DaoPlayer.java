@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
@@ -87,19 +88,22 @@ public class DaoPlayer extends DAO<Player>{
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
-			Date registerDate=null;
-			try {
-				registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
-			} catch (ParseException e) {
-				e.printStackTrace();
+			while(result.next()) {
+				Date registerDate=null;
+				try {
+					String test=result.getString("RegisterDate");
+					registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				Date birthday=null;
+				try {
+					birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
 			}
-			Date birthday=null;
-			try {
-				birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -112,7 +116,20 @@ public class DaoPlayer extends DAO<Player>{
 			      ).executeQuery(sql);
 			DaoReservation r=new DaoReservation(this.connect);
 			while(result.next()) {
-				p.addReservation((Reservation)r.find(result.getInt("idReservation")));
+				Date reservationDate=null;
+				try {
+					reservationDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("DateReservation"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				Date BeginDateWanted=null;
+				try {
+					BeginDateWanted = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("BeginDateWanted"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				DaoGame g=new DaoGame(this.connect);
+				p.addReservation(new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate));
 			}
 		}
 		catch(SQLException e) {
@@ -131,7 +148,7 @@ public class DaoPlayer extends DAO<Player>{
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		sql="SELECT * FROM Loan where idPlayer="+id;
+		sql="SELECT * FROM Loan where Lender="+id;
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -169,7 +186,7 @@ public class DaoPlayer extends DAO<Player>{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				players.add(new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount")));
+				players.add(find(result.getInt("idPlayer")));
 			}
 		}
 		catch(SQLException e) {
