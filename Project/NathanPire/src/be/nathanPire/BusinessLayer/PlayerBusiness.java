@@ -62,8 +62,8 @@ public class PlayerBusiness {
 			var r=new Reservation(g,d);
 			r.setPlayer(p);
 			dao.create(r);
-			p.getReservation().add(r);
-			return p;
+			DaoPlayer daoPlayer=new DaoPlayer(conn);
+			return daoPlayer.find(p.getID());
 		}
 		else
 			return null;
@@ -75,7 +75,8 @@ public class PlayerBusiness {
 			r.setPlayer(null);
 			Boolean t=p.getReservation().remove(r);
 			dao.delete(r);
-			return p;
+			DaoPlayer daoPlayer=new DaoPlayer(conn);
+			return daoPlayer.find(p.getID());
 		}
 		else
 			return null;

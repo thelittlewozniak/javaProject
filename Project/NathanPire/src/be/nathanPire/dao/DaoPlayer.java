@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import be.nathanPire.pojo.Copy;
 import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
@@ -142,7 +143,14 @@ public class DaoPlayer extends DAO<Player>{
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
-				//NEED TO IMPLEMENT
+				Date addDate=null;
+				try {
+					addDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("AddDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				DaoGame g=new DaoGame(this.connect);
+				p.addCopy(new Copy(g.find(result.getInt("idGame")),result.getDate("AddDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
 			}
 		}
 		catch(SQLException e) {
