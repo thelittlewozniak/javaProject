@@ -3,6 +3,7 @@ package be.nathanPire.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -27,10 +28,11 @@ public class DaoReservation extends DAO<Reservation>{
 		String beginDateWanted=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBeginDateWanted());
 		sql="INSERT INTO Reservation(DateReservation,BeginDateWanted,idPlayer,idGame) values('"+dateReservation+"','"+beginDateWanted+"','"+obj.getPlayer().getID()+"','"+obj.getGameWanted().getID()+"')";
 		try {
-			this.connect.createStatement(
+			int t=connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
 			        ResultSet.CONCUR_READ_ONLY
-			      ).executeQuery(sql);
+			      ).executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+			System.out.println(t);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -98,7 +100,7 @@ public class DaoReservation extends DAO<Reservation>{
 				}
 				DaoGame g=new DaoGame(this.connect);
 				DaoPlayer p =new DaoPlayer(this.connect);
-				r=new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
+				r=new Reservation(result.getInt("idReservation"),(Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
 				r.setPlayer(p.find(result.getInt("idPlayer")));
 			}
 		}
