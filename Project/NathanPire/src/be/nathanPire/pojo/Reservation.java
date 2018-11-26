@@ -45,4 +45,11 @@ public class Reservation {
 		this.beginDateWanted=beginDateWanted;
 		this.reservationDate=reservationDate;
 	}
+	public Reservation(int ID,Game gameWanted,Date beginDateWanted,Date reservationDate) {
+		this.ID=ID;
+		this.gameWanted=gameWanted;
+		this.beginDateWanted=beginDateWanted;
+		this.reservationDate=reservationDate;
+	}
+
 }

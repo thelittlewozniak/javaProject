@@ -19,7 +19,7 @@ public class PlayerBusiness {
 	public PlayerBusiness() {
 		conn=GetConnection.getInstance().getConnection();
 	}
-	public Player Login(String email,String password) {
+	public Player login(String email,String password) {
 		if(email!=null && password!=null) {
 			List<Player> listP= new DaoPlayer(conn).getAll();
 			for(int i=0;i<listP.size();i++) {
@@ -32,7 +32,7 @@ public class PlayerBusiness {
 		}
 		return null;
 	}
-	public boolean Register(String email,String password,String name,String firstname,String birthday,String address) {
+	public boolean register(String email,String password,String name,String firstname,String birthday,String address) {
 		if(email!=null && password!=null && name!=null && birthday!=null && address!=null) {
 			Date d = null;
 			try {
@@ -50,7 +50,7 @@ public class PlayerBusiness {
 		else
 			return false;
 	}
-	public Player MakeAReservation(Player p,String dateWanted,Game g) {
+	public Player makeAReservation(Player p,String dateWanted,Game g) {
 		if(g!=null && p!=null && !dateWanted.isEmpty()) {
 			Date d = null;
 			try {
@@ -62,8 +62,21 @@ public class PlayerBusiness {
 			var r=new Reservation(g,d);
 			r.setPlayer(p);
 			dao.create(r);
-			p.getReservation().add(r);
-			return p;
+			DaoPlayer daoPlayer=new DaoPlayer(conn);
+			return daoPlayer.find(p.getID());
+		}
+		else
+			return null;
+	}
+	public Player removeAReservation(Player p,int idres) {
+		if(idres!=0 && p!=null) {
+			DaoReservation dao=new DaoReservation(conn);
+			var r=dao.find(idres);
+			r.setPlayer(null);
+			Boolean t=p.getReservation().remove(r);
+			dao.delete(r);
+			DaoPlayer daoPlayer=new DaoPlayer(conn);
+			return daoPlayer.find(p.getID());
 		}
 		else
 			return null;

@@ -90,7 +90,7 @@ public class LoginView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtEmail.getText()!=null && txtPassword.getText()!=null) {
 					PlayerBusiness p=new PlayerBusiness();
-					Player u=p.Login(txtEmail.getText(), txtPassword.getText());
+					Player u=p.login(txtEmail.getText(), txtPassword.getText());
 					if(u!=null) {
 						HomeView home=new HomeView(u);
 						home.setVisible(true);
