@@ -29,7 +29,7 @@ public class DaoReservation extends DAO<Reservation>{
 		sql="INSERT INTO Reservation(DateReservation,BeginDateWanted,idPlayer,idGame) values('"+dateReservation+"','"+beginDateWanted+"','"+obj.getPlayer().getID()+"','"+obj.getGameWanted().getID()+"')";
 		try {
 			int t=connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			System.out.println(t);
@@ -47,7 +47,7 @@ public class DaoReservation extends DAO<Reservation>{
 		sql="DELETE FROM Reservation WHERE idReservation="+obj.getID();
 		try {
 			this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 		}
@@ -64,7 +64,7 @@ public class DaoReservation extends DAO<Reservation>{
 		sql="UPDATE Reservation SET BeginDateWanted="+obj.getBeginDateWanted();
 		try {
 			this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 		}
@@ -82,7 +82,7 @@ public class DaoReservation extends DAO<Reservation>{
 		sql="SELECT * FROM Reservation WHERE idReservation="+id;
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
@@ -103,12 +103,16 @@ public class DaoReservation extends DAO<Reservation>{
 				r=new Reservation(result.getInt("idReservation"),(Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
 				r.setPlayer(p.find(result.getInt("idPlayer")));
 			}
+			DaoGame g=new DaoGame(this.connect);
+			DaoPlayer p =new DaoPlayer(this.connect);
+			r=new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate);
+			r.setPlayer(p.find(result.getInt("idPlayer")));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 			return r;
 		}
-		
+
 		return r;
 	}
 
@@ -118,7 +122,7 @@ public class DaoReservation extends DAO<Reservation>{
 		sql="SELECT * FROM Reservation";
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			DaoGame g=new DaoGame(this.connect);

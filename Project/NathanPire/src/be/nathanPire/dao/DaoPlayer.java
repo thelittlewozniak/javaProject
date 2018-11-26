@@ -32,7 +32,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"',0)";
 		try {
 			this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 		}
@@ -49,7 +49,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="DELETE FROM Player where idPlayer="+obj.getID();
 		try {
 			this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 		}
@@ -57,7 +57,7 @@ public class DaoPlayer extends DAO<Player>{
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -68,7 +68,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="UPDATE Player SET Name="+obj.getName()+",Firstname="+obj.getFirstname()+",Birthday="+birthday+",Email="+obj.getEmail()+",Password="+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+registerDate+",Admin=false where idPlayer="+obj.getID();
 		try {
 			this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 		}
@@ -86,25 +86,22 @@ public class DaoPlayer extends DAO<Player>{
 		Player p=null;
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
-			while(result.next()) {
-				Date registerDate=null;
-				try {
-					String test=result.getString("RegisterDate");
-					registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				Date birthday=null;
-				try {
-					birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
+			Date registerDate=null;
+			try {
+				registerDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("RegisterDate"));
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
+			Date birthday=null;
+			try {
+				birthday = new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("Birthday"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -112,7 +109,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="SELECT * FROM Reservation where idPlayer="+id;
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			DaoReservation r=new DaoReservation(this.connect);
@@ -139,7 +136,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="SELECT * FROM Copy where idPlayer="+id;
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
@@ -156,10 +153,10 @@ public class DaoPlayer extends DAO<Player>{
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		sql="SELECT * FROM Loan where Lender="+id;
+		sql="SELECT * FROM Loan where idPlayer="+id;
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
@@ -178,7 +175,7 @@ public class DaoPlayer extends DAO<Player>{
 		sql="SELECT * FROM Player";
 		try {
 			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
@@ -194,7 +191,7 @@ public class DaoPlayer extends DAO<Player>{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				players.add(find(result.getInt("idPlayer")));
+				players.add(new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount")));
 			}
 		}
 		catch(SQLException e) {
@@ -203,5 +200,5 @@ public class DaoPlayer extends DAO<Player>{
 
 		return players;
 	}
-	
+
 }

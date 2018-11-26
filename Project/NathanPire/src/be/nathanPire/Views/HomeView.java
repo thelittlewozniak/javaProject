@@ -35,18 +35,18 @@ public class HomeView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblGames = new JLabel("Catalogue");
 		lblGames.setBounds(10, 11, 91, 14);
 		contentPane.add(lblGames);
-		
+
 		var gameBusiness=new GameBusiness();
 		var games=gameBusiness.getGames();
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		for(int i=0;i<games.size();i++) {
 			listModel.addElement(games.get(i).getName());
 		}
-		JList listGames = new JList(listModel);	
+		JList listGames = new JList(listModel);
 		listGames.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
@@ -61,11 +61,11 @@ public class HomeView extends JFrame {
 		});
 		listGames.setBounds(10, 36, 309, 388);
 		contentPane.add(listGames);
-		
+
 		JButton btnProfile = new JButton("Profile");
 		btnProfile.setBounds(395, 2, 121, 23);
 		contentPane.add(btnProfile);
-		
+
 		JButton btnYourReservations = new JButton("Your Reservations");
 		btnYourReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -76,15 +76,15 @@ public class HomeView extends JFrame {
 		});
 		btnYourReservations.setBounds(395, 33, 121, 23);
 		contentPane.add(btnYourReservations);
-		
-		JButton btnYourLoans = new JButton("Your Loans");
-		btnYourLoans.setBounds(395, 67, 121, 23);
-		contentPane.add(btnYourLoans);
-		
-		JButton btnYourGames = new JButton("Your Games");
-		btnYourGames.setBounds(395, 101, 121, 23);
-		contentPane.add(btnYourGames);
-		
+
+		JButton btnYourLoan = new JButton("Your Loan");
+		btnYourLoan.setBounds(395, 67, 121, 23);
+		contentPane.add(btnYourLoan);
+
+		JButton btnYourGame = new JButton("Your Game");
+		btnYourGame.setBounds(395, 101, 121, 23);
+		contentPane.add(btnYourGame);
+
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

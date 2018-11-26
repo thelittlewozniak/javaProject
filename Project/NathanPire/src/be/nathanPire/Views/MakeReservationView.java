@@ -32,16 +32,16 @@ public class MakeReservationView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblWichDateYou = new JLabel("Wich date you want? (dd/mm/yyyy)");
 		lblWichDateYou.setBounds(10, 11, 194, 14);
 		contentPane.add(lblWichDateYou);
-		
+
 		txtDate = new JTextField();
 		txtDate.setBounds(218, 8, 123, 20);
 		contentPane.add(txtDate);
 		txtDate.setColumns(10);
-		
+
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -54,7 +54,7 @@ public class MakeReservationView extends JFrame {
 		});
 		btnConfirm.setBounds(10, 39, 149, 23);
 		contentPane.add(btnConfirm);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
