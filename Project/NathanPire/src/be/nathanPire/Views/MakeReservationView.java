@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 
 public class MakeReservationView extends JFrame {
 
+	private static final long serialVersionUID = 5591192084584397443L;
 	private JPanel contentPane;
 	private JTextField txtDate;
 
