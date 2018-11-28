@@ -129,7 +129,7 @@ public class DaoLoan extends DAO<Loan> {
 				}
 				Date endDate=null;
 				try {
-					if(result.getString("EndDate")!="null") {
+					if(!result.getString("EndDate").equals("null")) {
 						endDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("EndDate"));
 					}
 				} catch (ParseException e) {

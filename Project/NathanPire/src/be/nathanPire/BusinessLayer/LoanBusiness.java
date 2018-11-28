@@ -16,8 +16,6 @@ import be.nathanPire.pojo.Loan;
 		}
 		public Boolean Loaned(Copy c) {
 			DaoLoan dao=new DaoLoan(conn);
-			DaoPlayer dp=new DaoPlayer(conn);
-			dao.create(new Loan(new Date(),dp.find(1),dp.find(2),c));
 			List<Loan> loans=dao.getAll();
 			for(int i=0;i<loans.size();i++) {
 				if(loans.get(i).getCopy().getID()==c.getID()) {
