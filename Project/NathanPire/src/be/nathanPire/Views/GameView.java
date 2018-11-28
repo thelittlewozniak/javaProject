@@ -21,7 +21,7 @@ public class GameView extends JFrame {
 	 */
 	public GameView(Player p,Game g) {
 		this.p=p;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 300, 311);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 
 public class MakeReservationView extends JFrame {
 
+	private static final long serialVersionUID = 5591192084584397443L;
 	private JPanel contentPane;
 	private JTextField txtDate;
 
@@ -26,7 +27,7 @@ public class MakeReservationView extends JFrame {
 	 * Create the frame.
 	 */
 	public MakeReservationView(Player p,Game g) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 365, 118);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

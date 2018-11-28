@@ -3,8 +3,11 @@ package be.nathanPire.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import be.nathanPire.pojo.Copy;
@@ -20,7 +23,8 @@ public class DaoCopy extends DAO<Copy> {
 
 	@Override
 	public boolean create(Copy obj) {
-		sql="INSERT INTO Copy(idGame,idPlayer,AddDate) values("+obj.getGame().getID()+","+obj.getLender().getID()+","+obj.getAddDate()+")";
+		String addDate=new SimpleDateFormat("dd/MM/yyyy").format(obj.getAddDate());
+		sql="INSERT INTO Copy(idGame,idPlayer,AddDate) values("+obj.getGame().getID()+","+obj.getLender().getID()+",'"+addDate+"')";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -80,8 +84,16 @@ public class DaoCopy extends DAO<Copy> {
 			      ).executeQuery(sql);
 			DaoGame g=new DaoGame(this.connect);
 			DaoPlayer p=new DaoPlayer(this.connect);
-			c=new Copy((Game)g.find(result.getInt("idGame")),result.getDate("AddDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-			c.setLender(p.find(result.getInt("idPlayer")));
+			while(result.next()) {
+				Date addDate=null;
+				try {
+					String test=result.getString("RegisterDate");
+					addDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("AddDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				c=new Copy((Game)g.find(result.getInt("idGame")),addDate);
+			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -102,7 +114,14 @@ public class DaoCopy extends DAO<Copy> {
 			DaoGame g=new DaoGame(this.connect);
 			DaoPlayer p=new DaoPlayer(this.connect);
 			while(result.next()) {
-				var i=new Copy((Game)g.find(result.getInt("idGame")),result.getDate("AddDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+				Date addDate=null;
+				try {
+					String test=result.getString("RegisterDate");
+					addDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("AddDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				var i=new Copy((Game)g.find(result.getInt("idGame")),addDate);
 				i.setLender(p.find(result.getInt("idPlayer")));
 				c.add(i);
 			}
