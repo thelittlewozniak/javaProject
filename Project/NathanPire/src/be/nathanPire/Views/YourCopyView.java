@@ -16,7 +16,7 @@ import be.nathanPire.pojo.Player;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class YourGamesView extends JFrame {
+public class YourCopyView extends JFrame {
 
 	private static final long serialVersionUID = 5546651156014597767L;
 	private JPanel contentPane;
@@ -24,8 +24,8 @@ public class YourGamesView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public YourGamesView(Player p) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public YourCopyView(Player p) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -37,7 +37,6 @@ public class YourGamesView extends JFrame {
 			listModel.addElement(p.getCopies().get(i).getGame().getName());
 		}
 		JList list = new JList(listModel);
-		list.setBounds(10, 11, 414, 205);
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        JList list = (JList)evt.getSource();
@@ -49,10 +48,18 @@ public class YourGamesView extends JFrame {
 		        }
 		    }
 		});
+		list.setBounds(10, 11, 414, 205);
 		contentPane.add(list);
 		
 		JButton btnAddANew = new JButton("Add a new game");
-		btnAddANew.setBounds(10, 227, 125, 23);
+		btnAddANew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AddANewCopyView addCopy=new AddANewCopyView(p);
+				addCopy.setVisible(true);
+				dispose();
+			}
+		});
+		btnAddANew.setBounds(10, 227, 162, 23);
 		contentPane.add(btnAddANew);
 		
 		JButton btnClose = new JButton("Close");

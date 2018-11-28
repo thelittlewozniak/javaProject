@@ -1,11 +1,12 @@
 package be.nathanPire.pojo;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Loan {
 	private int ID;
-	private LocalDateTime beginDate;
-	private LocalDateTime endDate;
+	private Date beginDate;
+	private Date endDate;
 	private Player borrower;
 	private Player lender;
 	private Copy copy;
@@ -16,16 +17,16 @@ public class Loan {
 	public void setID(int ID) {
 		this.ID=ID;
 	}
-	public LocalDateTime getBeginDate() {
+	public Date getBeginDate() {
 		return beginDate;
 	}
-	public void setBeginDate(LocalDateTime beginDate) {
+	public void setBeginDate(Date beginDate) {
 		this.beginDate=beginDate;
 	}
-	public LocalDateTime getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate=endDate;
 	}
 	public Player getBorrower() {
@@ -47,11 +48,19 @@ public class Loan {
 		this.copy=copy;
 	}
 	//Constructor
-	public Loan(LocalDateTime beginDate,LocalDateTime endDate,Player borrower,Player lender,Copy copy) {
+	public Loan(Date beginDate,Date endDate,Player borrower,Player lender,Copy copy) {
 		this.beginDate=beginDate;
 		this.endDate=endDate;
 		this.borrower=borrower;
 		this.lender=lender;
 		this.copy=copy;
+	}
+	public Loan(Date beginDate,Player borrower,Player lender,Copy copy) {
+		this.beginDate=beginDate;
+		this.endDate=null;
+		this.borrower=borrower;
+		this.lender=lender;
+		this.copy=copy;
+
 	}
 }
