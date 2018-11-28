@@ -150,7 +150,7 @@ public class DaoPlayer extends DAO<Player>{
 					e.printStackTrace();
 				}
 				DaoGame g=new DaoGame(this.connect);
-				p.addCopy(new Copy(g.find(result.getInt("idGame")),result.getDate("AddDate").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
+				p.addCopy(new Copy(result.getInt("idCopy"),g.find(result.getInt("idGame")),addDate));
 			}
 		}
 		catch(SQLException e) {

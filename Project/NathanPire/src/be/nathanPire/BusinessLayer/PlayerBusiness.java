@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import be.nathanPire.dao.DaoCopy;
 import be.nathanPire.dao.DaoPlayer;
 import be.nathanPire.dao.DaoReservation;
+import be.nathanPire.pojo.Copy;
 import be.nathanPire.pojo.Game;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
@@ -80,5 +82,12 @@ public class PlayerBusiness {
 		}
 		else
 			return null;
+	}
+	public Player addACopy(Player p,Game g) {
+		DaoCopy dao=new DaoCopy(conn);
+		var copy= new Copy(g,p);
+		dao.create(copy);
+		DaoPlayer daoPlayer=new DaoPlayer(conn);
+		return daoPlayer.find(p.getID());
 	}
 }

@@ -1,12 +1,13 @@
 package be.nathanPire.pojo;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Copy {
 	private int ID;
 	private Game game;
 	private Player lender;
-	private LocalDateTime addDate;
+	private Date addDate;
 	//GET && SET
 	public int getID() {
 		return ID;
@@ -26,15 +27,26 @@ public class Copy {
 	public void setLender(Player lender) {
 		this.lender=lender;
 	}
-	public LocalDateTime getAddDate() {
+	public Date getAddDate() {
 		return addDate;
 	}
-	public void setAddDate(LocalDateTime addDate) {
+	public void setAddDate(Date addDate) {
 		this.addDate=addDate;
 	}
 	//Constructor
-	public Copy(Game game,LocalDateTime date) {
+	public Copy(Game game,Date date) {
 		this.game=game;
 		this.addDate=date;
+	}
+	public Copy(Game game,Player lender) {
+		this.game=game;
+		this.lender=lender;
+		this.addDate=new Date();
+	}
+	public Copy(int ID,Game game,Date date) {
+		this.ID=ID;
+		this.game=game;
+		this.addDate=date;
+
 	}
 }

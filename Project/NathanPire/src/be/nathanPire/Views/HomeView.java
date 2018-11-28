@@ -82,6 +82,13 @@ public class HomeView extends JFrame {
 		contentPane.add(btnYourLoans);
 		
 		JButton btnYourGames = new JButton("Your Games");
+		btnYourGames.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				YourCopyView gView=new YourCopyView(p);
+				gView.setVisible(true);
+				dispose();
+			}
+		});
 		btnYourGames.setBounds(395, 101, 121, 23);
 		contentPane.add(btnYourGames);
 		

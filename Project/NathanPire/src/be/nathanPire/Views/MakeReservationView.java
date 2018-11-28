@@ -27,7 +27,7 @@ public class MakeReservationView extends JFrame {
 	 * Create the frame.
 	 */
 	public MakeReservationView(Player p,Game g) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 365, 118);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
