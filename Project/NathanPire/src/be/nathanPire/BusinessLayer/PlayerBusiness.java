@@ -90,4 +90,21 @@ public class PlayerBusiness {
 		DaoPlayer daoPlayer=new DaoPlayer(conn);
 		return daoPlayer.find(p.getID());
 	}
+	public Player makeALoan(Player p,int index) {
+		ReservationBusiness rB=new ReservationBusiness();
+		LoanBusiness lB=new LoanBusiness();
+		var res=rB.getReservation(p.getCopies().get(index).getGame());
+		if(res.getPlayer().getEmail()==p.getEmail()) {
+			lB.makeALoan(res,p,p.getCopies().get(index));
+		}
+		DaoPlayer daoPlayer=new DaoPlayer(conn);
+		return daoPlayer.find(p.getID());		
+	}
+	public Player deleteALoan(Player p,int index) {
+		LoanBusiness lB=new LoanBusiness();
+		var copy=p.getCopies().get(index);
+		lB.finishALoan(p, copy);
+		DaoPlayer daoPlayer=new DaoPlayer(conn);
+		return daoPlayer.find(p.getID());		
+	}
 }

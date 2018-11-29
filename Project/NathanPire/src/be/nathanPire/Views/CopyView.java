@@ -7,9 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import be.nathanPire.BusinessLayer.LoanBusiness;
+import be.nathanPire.BusinessLayer.PlayerBusiness;
 import be.nathanPire.pojo.Player;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CopyView extends JFrame {
 
@@ -19,6 +22,8 @@ public class CopyView extends JFrame {
 	 * Create the frame.
 	 */
 	public CopyView(Player p,int index) {
+		LoanBusiness loanB=new LoanBusiness();
+		var b=loanB.Loaned(p.getCopies().get(index));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 345, 260);
 		contentPane = new JPanel();
@@ -35,20 +40,55 @@ public class CopyView extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnCheckIfAvailable = new JButton("check if Reservations available");
+		btnCheckIfAvailable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PlayerBusiness pB=new PlayerBusiness();
+				var player=pB.makeALoan(p, index);
+				YourCopyView c=new YourCopyView(player);
+				c.setVisible(true);
+				dispose();
+			}
+		});
 		btnCheckIfAvailable.setBounds(10, 153, 200, 23);
-		contentPane.add(btnCheckIfAvailable);
+		JButton btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnRemove.setBounds(220, 187, 89, 23);
 		
 		JButton btnFinishLoan = new JButton("Finish Loan");
+		btnFinishLoan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PlayerBusiness pB=new PlayerBusiness();
+				var player=pB.deleteALoan(p, index);
+				YourCopyView c=new YourCopyView(player);
+				c.setVisible(true);
+				dispose();
+			}
+		});
 		btnFinishLoan.setBounds(10, 187, 200, 23);
-		contentPane.add(btnFinishLoan);
+		
+		if(!b) {
+			contentPane.add(btnRemove);
+			contentPane.add(btnCheckIfAvailable);
+
+		}
+		else {
+			contentPane.add(btnFinishLoan);
+		}
 		
 		JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				YourCopyView copies=new YourCopyView(p);
+				copies.setVisible(true);
+				dispose();
+			}
+		});
 		btnClose.setBounds(220, 153, 89, 23);
 		contentPane.add(btnClose);
 		
-		JButton btnRemove = new JButton("Remove");
-		btnRemove.setBounds(220, 187, 89, 23);
-		contentPane.add(btnRemove);
 		
 		JLabel lblSetNameOfGame = new JLabel(p.getCopies().get(index).getGame().getName());
 		lblSetNameOfGame.setBounds(145, 11, 164, 14);
@@ -61,9 +101,7 @@ public class CopyView extends JFrame {
 		JLabel lblLeased = new JLabel("Leased:");
 		lblLeased.setBounds(10, 61, 125, 14);
 		contentPane.add(lblLeased);
-		LoanBusiness loanB=new LoanBusiness();
-		
-		JLabel lblSetLeased = new JLabel(Boolean.toString(loanB.Loaned(p.getCopies().get(index))));
+		JLabel lblSetLeased = new JLabel(Boolean.toString(b));
 		lblSetLeased.setBounds(145, 61, 164, 14);
 		contentPane.add(lblSetLeased);
 	}
