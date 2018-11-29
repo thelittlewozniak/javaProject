@@ -90,6 +90,13 @@ public class PlayerBusiness {
 		DaoPlayer daoPlayer=new DaoPlayer(conn);
 		return daoPlayer.find(p.getID());
 	}
+	public Player deleteACopy(Player p,int index) {
+		DaoCopy dao=new DaoCopy(conn);
+		var copy=p.getCopies().get(index);
+		dao.delete(copy);
+		DaoPlayer daoPlayer=new DaoPlayer(conn);
+		return daoPlayer.find(p.getID());
+	}
 	public Player makeALoan(Player p,int index) {
 		ReservationBusiness rB=new ReservationBusiness();
 		LoanBusiness lB=new LoanBusiness();

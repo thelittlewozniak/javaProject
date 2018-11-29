@@ -78,13 +78,20 @@ public class HomeView extends JFrame {
 		contentPane.add(btnYourReservations);
 		
 		JButton btnYourLoans = new JButton("Your Loans");
+		btnYourLoans.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LoansView l=new LoansView(p);
+				l.setVisible(true);
+				dispose();
+			}
+		});
 		btnYourLoans.setBounds(395, 67, 121, 23);
 		contentPane.add(btnYourLoans);
 		
 		JButton btnYourGames = new JButton("Your Games");
 		btnYourGames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				YourCopyView gView=new YourCopyView(p);
+				YourCopiesView gView=new YourCopiesView(p);
 				gView.setVisible(true);
 				dispose();
 			}
