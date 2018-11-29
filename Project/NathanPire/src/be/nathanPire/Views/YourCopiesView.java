@@ -16,7 +16,7 @@ import be.nathanPire.pojo.Player;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class YourCopyView extends JFrame {
+public class YourCopiesView extends JFrame {
 
 	private static final long serialVersionUID = 5546651156014597767L;
 	private JPanel contentPane;
@@ -24,7 +24,7 @@ public class YourCopyView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public YourCopyView(Player p) {
+	public YourCopiesView(Player p) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

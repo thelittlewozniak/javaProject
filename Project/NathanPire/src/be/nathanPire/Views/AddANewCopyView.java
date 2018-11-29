@@ -48,7 +48,7 @@ public class AddANewCopyView extends JFrame {
 					PlayerBusiness pB=new PlayerBusiness();
 					var game=games.get(listGames.getSelectedIndex());
 					var player=pB.addACopy(p,game);
-					YourCopyView gView=new YourCopyView(player);
+					YourCopiesView gView=new YourCopiesView(player);
 					gView.setVisible(true);
 					dispose();
 				}
@@ -60,7 +60,7 @@ public class AddANewCopyView extends JFrame {
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				YourCopyView gView=new YourCopyView(p);
+				YourCopiesView gView=new YourCopiesView(p);
 				gView.setVisible(true);
 				dispose();
 			}
