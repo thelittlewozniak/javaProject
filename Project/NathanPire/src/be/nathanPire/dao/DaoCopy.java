@@ -87,12 +87,11 @@ public class DaoCopy extends DAO<Copy> {
 			while(result.next()) {
 				Date addDate=null;
 				try {
-					String test=result.getString("RegisterDate");
 					addDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("AddDate"));
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				c=new Copy((Game)g.find(result.getInt("idGame")),addDate);
+				c=new Copy(result.getInt("idCopy"),(Game)g.find(result.getInt("idGame")),addDate);
 			}
 		}
 		catch(SQLException e) {
@@ -116,12 +115,11 @@ public class DaoCopy extends DAO<Copy> {
 			while(result.next()) {
 				Date addDate=null;
 				try {
-					String test=result.getString("RegisterDate");
 					addDate=new SimpleDateFormat("dd/MM/yyyy").parse(result.getString("AddDate"));
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				var i=new Copy((Game)g.find(result.getInt("idGame")),addDate);
+				var i=new Copy(result.getInt("idCopy"),(Game)g.find(result.getInt("idGame")),addDate);
 				i.setLender(p.find(result.getInt("idPlayer")));
 				c.add(i);
 			}
