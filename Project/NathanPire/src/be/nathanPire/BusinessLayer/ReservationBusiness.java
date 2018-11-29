@@ -20,6 +20,7 @@ public class ReservationBusiness {
 		List<Reservation> list2=new ArrayList<Reservation>();
 		Reservation unit=list.get(0);
 		for(int i=1;i<list.size();i++) {
+			var t=list.get(i).getGameWanted();
 			if(list.get(i).getGameWanted().getID()==g.getID()) {
 				list2.add(list.get(i));	
 			}

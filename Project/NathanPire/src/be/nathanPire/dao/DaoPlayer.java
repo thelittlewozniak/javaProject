@@ -156,19 +156,6 @@ public class DaoPlayer extends DAO<Player>{
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		sql="SELECT * FROM Loan where Lender="+id;
-		try {
-			ResultSet result = this.connect.createStatement(
-			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
-			        ResultSet.CONCUR_READ_ONLY
-			      ).executeQuery(sql);
-			while(result.next()) {
-				//NEED TO IMPLEMENT
-			}
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
 		return p;
 	}
 

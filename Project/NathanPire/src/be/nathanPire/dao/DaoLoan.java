@@ -59,7 +59,9 @@ public class DaoLoan extends DAO<Loan> {
 
 	@Override
 	public boolean update(Loan obj) {
-		sql="UPDATE Loan SET Lender="+obj.getLender().getID()+",Borrower="+obj.getBorrower().getID()+",idCopy="+obj.getCopy().getID()+",BeginDate="+obj.getBeginDate()+",EndDate="+obj.getEndDate()+" where idLoan="+obj.getID();
+		String beginDate=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBeginDate());
+		String endDate=new SimpleDateFormat("dd/MM/yyyy").format(obj.getEndDate());
+		sql="UPDATE Loan SET Lender="+obj.getLender().getID()+",Borrower="+obj.getBorrower().getID()+",idCopy="+obj.getCopy().getID()+",BeginDate='"+beginDate+"',EndDate='"+endDate+"' where idLoan="+obj.getID();
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -99,7 +101,7 @@ public class DaoLoan extends DAO<Loan> {
 					e.printStackTrace();
 				}
 
-				l=new Loan(beginDate,endDate,p.find(result.getInt("Borrower")),p.find(result.getInt("Lender")),c.find(result.getInt("idCopy")));
+				l=new Loan(result.getInt("idLoan"),beginDate,endDate,p.find(result.getInt("Borrower")),p.find(result.getInt("Lender")),c.find(result.getInt("idCopy")));
 			}
 		}
 		catch(SQLException e) {
@@ -136,7 +138,7 @@ public class DaoLoan extends DAO<Loan> {
 					e.printStackTrace();
 				}
 
-				var i=new Loan(beginDate,endDate,p.find(result.getInt("Borrower")),p.find(result.getInt("Lender")),c.find(result.getInt("idCopy")));
+				var i=new Loan(result.getInt("idLoan"),beginDate,endDate,p.find(result.getInt("Borrower")),p.find(result.getInt("Lender")),c.find(result.getInt("idCopy")));
 				l.add(i);
 			}
 		}

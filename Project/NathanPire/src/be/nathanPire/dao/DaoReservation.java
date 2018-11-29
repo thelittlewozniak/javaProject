@@ -122,6 +122,7 @@ public class DaoReservation extends DAO<Reservation>{
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			DaoGame g=new DaoGame(this.connect);
+			DaoPlayer p =new DaoPlayer(this.connect);
 			while(result.next()) {
 				Date reservationDate=null;
 				try {
@@ -135,8 +136,7 @@ public class DaoReservation extends DAO<Reservation>{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-
-				r.add(new Reservation((Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate));
+				r.add(new Reservation(result.getInt("idReservation"),(Game)g.find(result.getInt("idGame")),BeginDateWanted,reservationDate,p.find(result.getInt("idPlayer"))));
 			}
 		}
 		catch(SQLException e) {

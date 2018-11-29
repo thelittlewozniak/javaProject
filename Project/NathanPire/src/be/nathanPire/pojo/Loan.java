@@ -48,7 +48,8 @@ public class Loan {
 		this.copy=copy;
 	}
 	//Constructor
-	public Loan(Date beginDate,Date endDate,Player borrower,Player lender,Copy copy) {
+	public Loan(int ID,Date beginDate,Date endDate,Player borrower,Player lender,Copy copy) {
+		this.ID=ID;
 		this.beginDate=beginDate;
 		this.endDate=endDate;
 		this.borrower=borrower;
