@@ -44,25 +44,18 @@ public class CopyView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayerBusiness pB=new PlayerBusiness();
 				var player=pB.makeALoan(p, index);
-				YourCopyView c=new YourCopyView(player);
+				YourCopiesView c=new YourCopiesView(player);
 				c.setVisible(true);
 				dispose();
 			}
 		});
-		btnCheckIfAvailable.setBounds(10, 153, 200, 23);
-		JButton btnRemove = new JButton("Remove");
-		btnRemove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnRemove.setBounds(220, 187, 89, 23);
-		
+		btnCheckIfAvailable.setBounds(10, 153, 200, 23);		
 		JButton btnFinishLoan = new JButton("Finish Loan");
 		btnFinishLoan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayerBusiness pB=new PlayerBusiness();
 				var player=pB.deleteALoan(p, index);
-				YourCopyView c=new YourCopyView(player);
+				YourCopiesView c=new YourCopiesView(player);
 				c.setVisible(true);
 				dispose();
 			}
@@ -70,7 +63,6 @@ public class CopyView extends JFrame {
 		btnFinishLoan.setBounds(10, 187, 200, 23);
 		
 		if(!b) {
-			contentPane.add(btnRemove);
 			contentPane.add(btnCheckIfAvailable);
 
 		}
@@ -81,7 +73,7 @@ public class CopyView extends JFrame {
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				YourCopyView copies=new YourCopyView(p);
+				YourCopiesView copies=new YourCopiesView(p);
 				copies.setVisible(true);
 				dispose();
 			}
