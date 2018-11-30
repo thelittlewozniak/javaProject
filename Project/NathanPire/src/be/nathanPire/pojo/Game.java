@@ -5,6 +5,7 @@ public class Game {
 	private String name;
 	private String developers;
 	private String editors;
+	private String console;
 	private float unit;
 	//GET && SET
 	public int getID() {
@@ -25,6 +26,12 @@ public class Game {
 	public void setDevelopers(String developers) {
 		this.developers=developers;
 	}
+	public String getConsole() {
+		return console;
+	}
+	public void setConsole(String console) {
+		this.console=console;
+	}
 	public String getEditors() {
 		return editors;
 	}
@@ -35,11 +42,12 @@ public class Game {
 		return unit;
 	}
 	//Constructor
-	public Game(int ID,String name,String developers,String editors,float unit) {
+	public Game(int ID,String name,String developers,String editors,float unit,String console) {
 		this.ID=ID;
 		this.name=name;
 		this.developers=developers;
 		this.editors=editors;
 		this.unit=unit;
+		this.console=console;
 	}
 }

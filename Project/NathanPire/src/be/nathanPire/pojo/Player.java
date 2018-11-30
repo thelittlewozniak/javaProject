@@ -36,15 +36,15 @@ public class Player extends User {
 		this.amountUnit=amountUnit;
 	}
 	//Constructor
-	public Player(int ID,String name, String firstname, String email, String password, String address, Date birthday,LocalDateTime registerDate,float amountUnit) {
-		super(ID,name, firstname, email, password, address, birthday);
+	public Player(int ID,String name, String firstname, String email, String password, String address, Date birthday,LocalDateTime registerDate,float amountUnit,Boolean isAdmin) {
+		super(ID,name, firstname, email, password, address, birthday,isAdmin);
 		this.reservations=new ArrayList<Reservation>();
 		this.copies=new ArrayList<Copy>();
 		this.registerDate=registerDate;
 		this.amountUnit=amountUnit;
 	}
-	public Player(String name,String firstname,String email,String password,String Address,Date date) {
-		super(name, firstname, email, password, Address,date);
+	public Player(String name,String firstname,String email,String password,String Address,Date date,Boolean isAdmin) {
+		super(name, firstname, email, password, Address,date,isAdmin);
 		this.registerDate=LocalDateTime.now();
 	}
 	public Player(String email,String password) {

@@ -17,7 +17,7 @@ public class DaoGame extends DAO<Game> {
 
 	@Override
 	public boolean create(Game obj) {
-		sql="INSERT INTO Game(Name,Developers,Editor,Unit) values("+obj.getName()+","+obj.getDevelopers()+","+obj.getEditors()+","+obj.getUnit()+")";
+		sql="INSERT INTO Game(Name,Developers,Editor,Unit,Console) values("+obj.getName()+","+obj.getDevelopers()+","+obj.getEditors()+","+obj.getUnit()+",'"+obj.getConsole()+"')";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -52,7 +52,7 @@ public class DaoGame extends DAO<Game> {
 	@Override
 	public boolean update(Game obj) {
 		Game g=obj;
-		sql="UPDATE Game SET Name="+g.getName()+",Developers="+g.getEditors()+",Editor="+g.getEditors()+",Unit="+g.getUnit()+" where idGame="+g.getID();
+		sql="UPDATE Game SET Name='"+g.getName()+"',Developers='"+g.getEditors()+"',Editor='"+g.getEditors()+"',Unit="+g.getUnit()+",Console='"+g.getConsole()+"' where idGame="+g.getID();
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -77,7 +77,7 @@ public class DaoGame extends DAO<Game> {
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
-				g=new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit"));
+				g=new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit"),result.getString("Console"));
 			}
 		}
 		catch(SQLException e) {
@@ -98,7 +98,7 @@ public class DaoGame extends DAO<Game> {
 			        ResultSet.CONCUR_READ_ONLY
 			      ).executeQuery(sql);
 			while(result.next()) {
-				g.add(new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit")));
+				g.add(new Game(result.getInt("idGame"),result.getString("Name"),result.getString("Developers"),result.getString("Editor"),result.getFloat("Unit"),result.getString("Console")));
 			}
 		}
 		catch(SQLException e) {

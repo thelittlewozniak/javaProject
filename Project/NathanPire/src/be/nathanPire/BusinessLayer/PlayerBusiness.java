@@ -25,7 +25,7 @@ public class PlayerBusiness {
 		if(email!=null && password!=null) {
 			List<Player> listP= new DaoPlayer(conn).getAll();
 			for(int i=0;i<listP.size();i++) {
-				if(listP.get(i).getEmail().equals(email)) {
+				if(listP.get(i).getEmail().equals(email.toLowerCase())) {
 					if(listP.get(i).getPassword().equals(password)){
 						return listP.get(i);
 					}
@@ -34,7 +34,7 @@ public class PlayerBusiness {
 		}
 		return null;
 	}
-	public boolean register(String email,String password,String name,String firstname,String birthday,String address) {
+	public boolean register(String email,String password,String name,String firstname,String birthday,String address,Boolean isAdmin) {
 		if(email!=null && password!=null && name!=null && birthday!=null && address!=null) {
 			Date d = null;
 			try {
@@ -42,7 +42,7 @@ public class PlayerBusiness {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 
-			Player p=new Player(name,firstname,email,password,address,d);
+			Player p=new Player(name,firstname,email.toLowerCase(),password,address,d,isAdmin);
 			if(new DaoPlayer(conn).create(p)) {
 				return true;
 			}
@@ -60,10 +60,12 @@ public class PlayerBusiness {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 
-			DaoReservation dao=new DaoReservation(conn);
-			var r=new Reservation(g,d);
-			r.setPlayer(p);
-			dao.create(r);
+			if(p.getAmountUnit()>0) {
+				DaoReservation dao=new DaoReservation(conn);
+				var r=new Reservation(g,d);
+				r.setPlayer(p);
+				dao.create(r);
+			}
 			DaoPlayer daoPlayer=new DaoPlayer(conn);
 			return daoPlayer.find(p.getID());
 		}
