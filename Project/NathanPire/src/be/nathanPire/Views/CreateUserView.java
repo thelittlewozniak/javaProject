@@ -121,6 +121,9 @@ public class CreateUserView extends JFrame {
 					JOptionPane.showMessageDialog(null, "User created");
 					dispose();
 				}
+				else {
+					JOptionPane.showMessageDialog(null, "user not created. Your email is already used");
+				}
 			}
 		});
 		btnCreateUser.setBounds(10, 340, 294, 40);

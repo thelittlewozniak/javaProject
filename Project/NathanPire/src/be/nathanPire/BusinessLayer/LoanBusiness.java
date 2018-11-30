@@ -1,6 +1,7 @@
 package be.nathanPire.BusinessLayer;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,11 +50,12 @@ import be.nathanPire.pojo.Reservation;
 		public List<Loan> getLoanByPlayer(Player p){
 			DaoLoan dao=new DaoLoan(conn);
 			List<Loan> l=dao.getAll();
+			List<Loan> goodLoans=new ArrayList<Loan>();
 			for(int i=0;i<l.size();i++) {
-				if(l.get(i).getBorrower().getID()!=p.getID()) {
-					l.remove(l.get(i));
+				if(l.get(i).getBorrower().getID()==p.getID()) {
+					goodLoans.add(l.get(i));
 				}
 			}
-			return l;
+			return goodLoans;
 		}
 }

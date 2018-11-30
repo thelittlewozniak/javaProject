@@ -4,24 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import be.nathanPire.BusinessLayer.GameBusiness;
 import be.nathanPire.pojo.Game;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddAGame extends JFrame {
+public class UpdateGameView extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6989463283523240348L;
+	private static final long serialVersionUID = -1679918178074986811L;
 	private JPanel contentPane;
 	private JTextField txtName;
 	private JTextField txtDevelopers;
@@ -31,14 +30,12 @@ public class AddAGame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddAGame() {
+	public UpdateGameView(Game g) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 213);
+		setBounds(100, 100, 256, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(10, 11, 100, 14);
 		contentPane.add(lblName);
@@ -55,49 +52,50 @@ public class AddAGame extends JFrame {
 		lblUnit.setBounds(10, 86, 100, 14);
 		contentPane.add(lblUnit);
 		
-		JLabel lblConsole = new JLabel("Console:");
-		lblConsole.setBounds(10, 111, 46, 14);
-		contentPane.add(lblConsole);
-		
-		txtName = new JTextField();
+		txtName = new JTextField(g.getName());
 		txtName.setBounds(120, 8, 86, 20);
 		contentPane.add(txtName);
 		txtName.setColumns(10);
 		
-		txtDevelopers = new JTextField();
+		txtDevelopers = new JTextField(g.getDevelopers());
 		txtDevelopers.setColumns(10);
 		txtDevelopers.setBounds(120, 33, 86, 20);
 		contentPane.add(txtDevelopers);
 		
-		txtEditors = new JTextField();
+		txtEditors = new JTextField(g.getEditors());
 		txtEditors.setColumns(10);
 		txtEditors.setBounds(120, 58, 86, 20);
 		contentPane.add(txtEditors);
 		
-		txtUnit = new JTextField();
+		txtUnit = new JTextField(Float.toString(g.getUnit()));
 		txtUnit.setColumns(10);
 		txtUnit.setBounds(120, 83, 86, 20);
 		contentPane.add(txtUnit);
 		
-		txtConsole = new JTextField();
+		txtConsole = new JTextField(g.getConsole());
 		txtConsole.setColumns(10);
 		txtConsole.setBounds(120, 108, 86, 20);
 		contentPane.add(txtConsole);
+		setContentPane(contentPane);
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				var game=new Game(txtName.getText(),txtDevelopers.getText(),txtEditors.getText(),Float.parseFloat(txtUnit.getText()),txtConsole.getText());
-				GameBusiness g=new GameBusiness();
-				g.addGame(game);
+				GameBusiness gB=new GameBusiness();
+				gB.editGame(new Game(g.getID(),txtName.getText(),txtDevelopers.getText(),txtEditors.getText(),Float.parseFloat(txtUnit.getText()),txtConsole.getText()));
 				dispose();
 			}
 		});
-		btnAdd.setBounds(10, 136, 89, 23);
-		contentPane.add(btnAdd);
+		btnUpdate.setBounds(10, 146, 89, 23);
+		contentPane.add(btnUpdate);
 		
 		JButton btnClose = new JButton("Close");
-		btnClose.setBounds(117, 136, 89, 23);
+		btnClose.setBounds(120, 146, 89, 23);
 		contentPane.add(btnClose);
+		
+		JLabel lblConsole = new JLabel("Console");
+		lblConsole.setBounds(10, 111, 100, 14);
+		contentPane.add(lblConsole);
 	}
+
 }

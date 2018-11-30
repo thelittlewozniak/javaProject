@@ -10,6 +10,7 @@ import be.nathanPire.BusinessLayer.LoanBusiness;
 import be.nathanPire.BusinessLayer.PlayerBusiness;
 import be.nathanPire.pojo.Player;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -44,7 +45,13 @@ public class CopyView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayerBusiness pB=new PlayerBusiness();
 				var player=pB.makeALoan(p, index);
-				YourCopiesView c=new YourCopiesView(player);
+				YourCopiesView c = null;
+				if(player==null) {
+					JOptionPane.showMessageDialog(null, "No reservation available");
+				}
+				else {
+					c=new YourCopiesView(player);
+				}
 				c.setVisible(true);
 				dispose();
 			}
