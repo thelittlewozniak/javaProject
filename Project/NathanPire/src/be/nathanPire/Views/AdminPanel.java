@@ -39,8 +39,24 @@ public class AdminPanel extends JFrame {
 		contentPane.add(btnMakeTheUnit);
 		
 		JButton btnAddAGame = new JButton("Add a game");
+		btnAddAGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AddAGame addG=new AddAGame();
+				addG.setVisible(true);
+				dispose();
+			}
+		});
 		btnAddAGame.setBounds(10, 45, 414, 23);
 		contentPane.add(btnAddAGame);
+		
+		JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnClose.setBounds(10, 79, 414, 23);
+		contentPane.add(btnClose);
 	}
 
 }
