@@ -44,7 +44,7 @@ public class HomeView extends JFrame {
 		var games=gameBusiness.getGames();
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		for(int i=0;i<games.size();i++) {
-			listModel.addElement(games.get(i).getName());
+			listModel.addElement(games.get(i).getName()+" "+games.get(i).getConsole());
 		}
 		JList listGames = new JList(listModel);	
 		listGames.addMouseListener(new MouseAdapter() {
