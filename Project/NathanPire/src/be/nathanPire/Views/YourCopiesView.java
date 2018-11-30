@@ -67,6 +67,7 @@ public class YourCopiesView extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				HomeView h=new HomeView(p);
 				h.setVisible(true);
+				dispose();
 			}
 		});
 		btnClose.setBounds(335, 227, 89, 23);
