@@ -17,7 +17,7 @@ public class DaoGame extends DAO<Game> {
 
 	@Override
 	public boolean create(Game obj) {
-		sql="INSERT INTO Game(Name,Developers,Editor,Unit,Console) values("+obj.getName()+","+obj.getDevelopers()+","+obj.getEditors()+","+obj.getUnit()+",'"+obj.getConsole()+"')";
+		sql="INSERT INTO Game(Name,Developers,Editor,Unit,Console) values('"+obj.getName()+"','"+obj.getDevelopers()+"','"+obj.getEditors()+"',"+obj.getUnit()+",'"+obj.getConsole()+"')";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 

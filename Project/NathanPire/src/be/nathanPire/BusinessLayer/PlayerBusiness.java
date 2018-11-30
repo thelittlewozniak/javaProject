@@ -9,10 +9,12 @@ import java.util.Date;
 import java.util.List;
 
 import be.nathanPire.dao.DaoCopy;
+import be.nathanPire.dao.DaoLoan;
 import be.nathanPire.dao.DaoPlayer;
 import be.nathanPire.dao.DaoReservation;
 import be.nathanPire.pojo.Copy;
 import be.nathanPire.pojo.Game;
+import be.nathanPire.pojo.Loan;
 import be.nathanPire.pojo.Player;
 import be.nathanPire.pojo.Reservation;
 
@@ -115,5 +117,21 @@ public class PlayerBusiness {
 		lB.finishALoan(p, copy);
 		DaoPlayer daoPlayer=new DaoPlayer(conn);
 		return daoPlayer.find(p.getID());		
+	}
+	public void MakeCalcul() {
+		DaoLoan daoL=new DaoLoan(conn);
+		DaoPlayer daoP=new DaoPlayer(conn);
+		List<Loan> loans=daoL.getAll();
+		for(int i=0;i<loans.size();i++) {
+			if(loans.get(i).getEndDate()==null) {
+				float unit=loans.get(i).getCopy().getGame().getUnit();
+				Player lender=loans.get(i).getLender();
+				lender.setAmountUnit(lender.getAmountUnit()+unit);
+				daoP.update(lender);
+				Player borrower=loans.get(i).getBorrower();
+				borrower.setAmountUnit(borrower.getAmountUnit()-unit);
+				daoP.update(borrower);
+			}
+		}
 	}
 }
