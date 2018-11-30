@@ -116,7 +116,7 @@ public class CreateUserView extends JFrame {
 		btnCreateUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayerBusiness p=new PlayerBusiness();
-				var u=p.register(txtEmail.getText(), txtPassword.getText(), txtSurname.getText(), txtFirstname.getText(), txtBirthday.getText(), txtAddress.getText());
+				var u=p.register(txtEmail.getText(), txtPassword.getText(), txtSurname.getText(), txtFirstname.getText(), txtBirthday.getText(), txtAddress.getText(),false);
 				if(u) {
 					JOptionPane.showMessageDialog(null, "User created");
 					dispose();
