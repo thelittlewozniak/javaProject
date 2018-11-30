@@ -44,7 +44,7 @@ public class HomeView extends JFrame {
 		var games=gameBusiness.getGames();
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		for(int i=0;i<games.size();i++) {
-			listModel.addElement(games.get(i).getName());
+			listModel.addElement(games.get(i).getName()+" "+games.get(i).getConsole());
 		}
 		JList listGames = new JList(listModel);	
 		listGames.addMouseListener(new MouseAdapter() {
@@ -61,10 +61,6 @@ public class HomeView extends JFrame {
 		});
 		listGames.setBounds(10, 36, 309, 388);
 		contentPane.add(listGames);
-		
-		JButton btnProfile = new JButton("Profile");
-		btnProfile.setBounds(395, 2, 121, 23);
-		contentPane.add(btnProfile);
 		
 		JButton btnYourReservations = new JButton("Your Reservations");
 		btnYourReservations.addActionListener(new ActionListener() {
@@ -109,5 +105,22 @@ public class HomeView extends JFrame {
 		});
 		btnLogOut.setBounds(427, 401, 89, 23);
 		contentPane.add(btnLogOut);
+		
+		JLabel lblYourUnit = new JLabel("Your unit:");
+		lblYourUnit.setBounds(395, 11, 53, 14);
+		contentPane.add(lblYourUnit);
+		
+		JLabel lblSetUnit = new JLabel(Float.toString(p.getAmountUnit()));
+		lblSetUnit.setBounds(458, 11, 46, 14);
+		contentPane.add(lblSetUnit);
+		
+		JButton btnAdminPanel = new JButton("Admin Panel");
+		btnAdminPanel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAdminPanel.setBounds(395, 132, 121, 23);
+		if(p.getIsAdmin())
+			contentPane.add(btnAdminPanel);
 	}
 }

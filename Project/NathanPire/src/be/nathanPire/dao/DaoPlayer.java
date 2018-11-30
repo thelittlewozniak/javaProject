@@ -29,7 +29,7 @@ public class DaoPlayer extends DAO<Player>{
 	public boolean create(Player obj) {
 		String birthday=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBirthday());
 		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"',0)";
+		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"',"+obj.getIsAdmin()+")";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -103,7 +103,7 @@ public class DaoPlayer extends DAO<Player>{
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"));
+				p=new Player(result.getInt("idPlayer"),result.getString("Name"),result.getString("Firstname"),result.getString("Email"),result.getString("Password"),result.getString("Address"),birthday,registerDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),result.getFloat("Amount"),result.getBoolean("Admin"));
 			}
 		}
 		catch(SQLException e) {
