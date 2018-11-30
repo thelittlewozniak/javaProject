@@ -34,7 +34,7 @@ public class YourCopiesView extends JFrame {
 		
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		for(int i=0;i<p.getCopies().size();i++) {
-			listModel.addElement(p.getCopies().get(i).getGame().getName());
+			listModel.addElement(p.getCopies().get(i).getGame().getName()+" "+p.getCopies().get(i).getGame().getConsole());
 		}
 		JList list = new JList(listModel);
 		list.addMouseListener(new MouseAdapter() {

@@ -10,6 +10,7 @@ public abstract class User {
 	private String password;
 	private String address;
 	private Date birthday;
+	private Boolean isAdmin;
 	//GET && SET
 	
 	public int getID() {
@@ -54,8 +55,11 @@ public abstract class User {
 	public void setBirthday(Date birthday) {
 		this.birthday=birthday;
 	}
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
 	//Constructor
-	public User(int ID,String name,String firstname,String email,String password,String address,Date birthday) {
+	public User(int ID,String name,String firstname,String email,String password,String address,Date birthday,Boolean isAdmin) {
 		this.ID=ID;
 		this.name=name;
 		this.firstname=firstname;
@@ -63,14 +67,16 @@ public abstract class User {
 		this.password=password;
 		this.address=address;
 		this.birthday=birthday;
+		this.isAdmin=isAdmin;
 	}
-	public User(String name,String firstname,String email,String password,String address,Date birthday) {
+	public User(String name,String firstname,String email,String password,String address,Date birthday,Boolean isAdmin) {
 		this.name=name;
 		this.firstname=firstname;
 		this.email=email;
 		this.password=password;
 		this.address=address;
 		this.birthday=birthday;
+		this.isAdmin=isAdmin;
 	}
 	public User(String email,String password) {
 		this.name="";
