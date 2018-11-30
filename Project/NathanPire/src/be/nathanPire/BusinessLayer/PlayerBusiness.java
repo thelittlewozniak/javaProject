@@ -25,7 +25,7 @@ public class PlayerBusiness {
 		if(email!=null && password!=null) {
 			List<Player> listP= new DaoPlayer(conn).getAll();
 			for(int i=0;i<listP.size();i++) {
-				if(listP.get(i).getEmail().equals(email)) {
+				if(listP.get(i).getEmail().equals(email.toLowerCase())) {
 					if(listP.get(i).getPassword().equals(password)){
 						return listP.get(i);
 					}
@@ -42,7 +42,7 @@ public class PlayerBusiness {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 
-			Player p=new Player(name,firstname,email,password,address,d,isAdmin);
+			Player p=new Player(name,firstname,email.toLowerCase(),password,address,d,isAdmin);
 			if(new DaoPlayer(conn).create(p)) {
 				return true;
 			}
