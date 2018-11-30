@@ -39,17 +39,21 @@ public class PlayerBusiness {
 	public boolean register(String email,String password,String name,String firstname,String birthday,String address,Boolean isAdmin) {
 		if(email!=null && password!=null && name!=null && birthday!=null && address!=null) {
 			Date d = null;
+			DaoPlayer dao=new DaoPlayer(conn);
+			List<Player> l=dao.getAll();
+			for(int i=0;i<l.size();i++) {
+				if(l.get(i).getEmail().equals(email)) {
+					return false;
+				}
+			}
 			try {
 				d = new SimpleDateFormat("dd/MM/yyyy").parse(birthday);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} 
 			Player p=new Player(name,firstname,email.toLowerCase(),password,address,d,isAdmin);
-			if(new DaoPlayer(conn).create(p)) {
-				return true;
-			}
-			else
-				return false;
+			dao.create(p);
+			return true;
 		}
 		else
 			return false;
@@ -105,8 +109,16 @@ public class PlayerBusiness {
 		ReservationBusiness rB=new ReservationBusiness();
 		LoanBusiness lB=new LoanBusiness();
 		var res=rB.getReservation(p.getCopies().get(index).getGame());
-		if(res.getPlayer().getEmail()==p.getEmail()) {
-			lB.makeALoan(res,p,p.getCopies().get(index));
+		if(res==null) {
+			return null;
+		}
+		else {
+			if(!res.getPlayer().getEmail().equals(p.getEmail())) {
+				lB.makeALoan(res,p,p.getCopies().get(index));
+			}
+			else {
+				return null;
+			}
 		}
 		DaoPlayer daoPlayer=new DaoPlayer(conn);
 		return daoPlayer.find(p.getID());		

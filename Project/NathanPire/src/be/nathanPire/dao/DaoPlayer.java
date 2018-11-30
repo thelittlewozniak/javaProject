@@ -29,7 +29,7 @@ public class DaoPlayer extends DAO<Player>{
 	public boolean create(Player obj) {
 		String birthday=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBirthday());
 		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"',"+obj.getIsAdmin()+")";
+		sql="INSERT INTO Player(Name,Firstname,Birthday,Email,Password,Address,Amount,RegisterDate,Admin) values('"+obj.getName()+"','"+obj.getFirstname()+"','"+birthday+"','"+obj.getEmail()+"','"+obj.getPassword()+"','"+obj.getAddress()+"',"+10.0+",'"+registerDate+"','"+obj.getIsAdmin()+"')";
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
