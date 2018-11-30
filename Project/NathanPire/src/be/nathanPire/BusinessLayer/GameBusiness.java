@@ -25,4 +25,8 @@ public class GameBusiness {
 		}
 		return g;
 	}
+	public void AddGame(Game g) {
+		var dao=new DaoGame(conn);
+		dao.create(g);
+	}
 }

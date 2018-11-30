@@ -117,6 +117,9 @@ public class HomeView extends JFrame {
 		JButton btnAdminPanel = new JButton("Admin Panel");
 		btnAdminPanel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				AdminPanel a=new AdminPanel();
+				a.setVisible(true);
+				dispose();
 			}
 		});
 		btnAdminPanel.setBounds(395, 132, 121, 23);

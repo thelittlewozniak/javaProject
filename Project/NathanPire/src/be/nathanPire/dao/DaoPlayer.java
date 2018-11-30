@@ -64,8 +64,8 @@ public class DaoPlayer extends DAO<Player>{
 	@Override
 	public boolean update(Player obj) {
 		String birthday=new SimpleDateFormat("dd/MM/yyyy").format(obj.getBirthday());
-		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(obj.getRegisterDate());
-		sql="UPDATE Player SET Name="+obj.getName()+",Firstname="+obj.getFirstname()+",Birthday="+birthday+",Email="+obj.getEmail()+",Password="+obj.getPassword()+",Address="+obj.getAddress()+",Amount="+obj.getAmountUnit()+",RegisterDate="+registerDate+",Admin=false where idPlayer="+obj.getID();
+		String registerDate=new SimpleDateFormat("dd/MM/yyyy").format(Date.from(obj.getRegisterDate().atZone(ZoneId.systemDefault()).toInstant()));
+		sql="UPDATE Player SET Name='"+obj.getName()+"',Firstname='"+obj.getFirstname()+"',Birthday='"+birthday+"',Email='"+obj.getEmail()+"',Password='"+obj.getPassword()+"',Address='"+obj.getAddress()+"',Amount="+obj.getAmountUnit()+",RegisterDate='"+registerDate+"',Admin='"+obj.getIsAdmin()+"' where idPlayer="+obj.getID();
 		try {
 			this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 

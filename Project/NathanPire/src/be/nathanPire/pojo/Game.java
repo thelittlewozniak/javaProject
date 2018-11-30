@@ -50,4 +50,11 @@ public class Game {
 		this.unit=unit;
 		this.console=console;
 	}
+	public Game(String name,String developers,String editors,float unit,String console) {
+		this.name=name;
+		this.developers=developers;
+		this.editors=editors;
+		this.unit=unit;
+		this.console=console;
+	}
 }
